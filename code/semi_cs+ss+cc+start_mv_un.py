@@ -22,8 +22,8 @@ dealedDataIndex = sys.argv[1]
 dataindex = int(sys.argv[2])
 epochs = int(sys.argv[3])
 
-readpath = "../dealedData"+dealedDataIndex+"/data" + str(dataindex) + "/"
-writepath = "../result"+dealedDataIndex+"/data" + str(dataindex) + "/2_semi_cs+ss_un_"+str(top_count)+"/"
+readpath = ""
+writepath = ""
 
 
 learning_rate = 0.1
@@ -55,15 +55,11 @@ booklist_claim, claim_book_dict = myRead.build_book_claim(filename=readpath + "s
 source_claim_dict, claim_source_dict = myRead.build_source_claim(pairlist_cs=pairlist_cs)
 sspair_list = myRead.build_sspair_list(claim_source_dict=claim_source_dict, booklist=booklist_claim, writefile=readpath+"sspair")
 
-pairlist_cl = list()
-cl_dict = dict()
+
 
 print("cs size:",pairlist_cs.__len__())
 print("booklist_cs size:", booklist_claim.__len__())
 print("claim_book_dict size:",claim_book_dict.__len__())
-
-print("pairlist_cl:",pairlist_cl.__len__())
-print("cl_dict:",cl_dict.__len__())
 print("sspair_list:",sspair_list.__len__())
 
 ########################################################## parameter ####################################################
@@ -83,16 +79,12 @@ with graph.as_default():
     train_contextWord = tf.placeholder(tf.int32, shape=[None])
     # for cs
     train_labels = tf.placeholder(tf.float32, shape=[batch_size, None])
-    # for cs semi
-    semi_claim_embedding = tf.placeholder(tf.float32, shape=[None, embedding_dim])
     # for ss
     ss_same_count = tf.placeholder(tf.float32, shape=[1,1])
 
     ############## Ops and variables pinned to the CPU because of missing GPU implementation ##############
     ############## Ops and variables begins ##############
     with tf.device('/cpu:0'):
-        label_np = np.zeros([2, embedding_dim], dtype=np.float32)
-        label_embeddings = tf.Variable(label_np, name="label_embeddings")
         # Embeddings for claims.
         claim_np = (np.random.random([claim_size, embedding_dim]).astype(np.float32)-0.5)
         claim_np_norm = np.linalg.norm(claim_np, keepdims=True)
@@ -223,7 +215,6 @@ with tf.Session(graph=graph) as session:
 
     final_embeddings_claim = sm_w_t_claim.eval()
     final_embeddings_source = source_embeddings.eval()
-    final_embeddings_label = label_embeddings.eval()
     np.savetxt(writepath + "final_embeddings_claim.txt",final_embeddings_claim)
     np.savetxt(writepath + "final_embeddings_source.txt",final_embeddings_source)
 
