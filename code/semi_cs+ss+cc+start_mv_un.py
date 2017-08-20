@@ -22,6 +22,7 @@ dealedDataIndex = sys.argv[1]
 dataindex = int(sys.argv[2])
 epochs = int(sys.argv[3])
 top_count = int(sys.argv[4])
+batch_size = int(sys.argv[5])
 
 readpath = ""
 writepath = ""
@@ -65,7 +66,6 @@ print("sspair_list:",sspair_list.__len__())
 
 ########################################################## parameter ####################################################
 
-batch_size = 1
 claim_size = dict_claim.__len__()
 source_size = dict_source.__len__()
 semi_alpha = 1.01 - 1.0
