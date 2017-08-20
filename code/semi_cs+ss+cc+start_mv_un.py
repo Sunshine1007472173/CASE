@@ -21,6 +21,7 @@ import sys
 dealedDataIndex = sys.argv[1]
 dataindex = int(sys.argv[2])
 epochs = int(sys.argv[3])
+top_count = int(sys.argv[4])
 
 readpath = ""
 writepath = ""
@@ -218,7 +219,7 @@ with tf.Session(graph=graph) as session:
     np.savetxt(writepath + "final_embeddings_claim.txt",final_embeddings_claim)
     np.savetxt(writepath + "final_embeddings_source.txt",final_embeddings_source)
 
-    top_count=10
+ 
     mygenLabel = un_generate_label()
     mygenLabel.generate(readpath=readpath, resultpath=writepath, top_count=top_count)
     myevaluation = evaluation()
