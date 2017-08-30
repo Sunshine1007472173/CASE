@@ -68,8 +68,8 @@ print("sspair_list:",sspair_list.__len__())
 
 claim_size = dict_claim.__len__()
 source_size = dict_source.__len__()
-semi_alpha = 1.01 - 1.0
-semi_beta = 1.01 - 1.0
+semi_alpha = 1.1 - 1.0
+semi_beta = 1.1 - 1.0
 
 
 ##########################################################graph begins##################################################
