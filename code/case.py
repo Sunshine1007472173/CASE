@@ -18,11 +18,10 @@ import time
 import os
 import sys
 
-dealedDataIndex = sys.argv[1]
-dataindex = int(sys.argv[2])
-epochs = int(sys.argv[3])
-top_count = int(sys.argv[4])
-batch_size = int(sys.argv[5])
+
+epochs = int(sys.argv[1])
+top_count = int(sys.argv[2])
+batch_size = int(sys.argv[3])
 
 readpath = ""
 writepath = ""
