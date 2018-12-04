@@ -163,7 +163,7 @@ def target():
             batch_ss_center[0] = sspair_list[index_ss]._center
             batch_ss_context[0] = sspair_list[index_ss]._context
             count_sum = sspair_list[index_ss]._samecount + sspair_list[index_ss]._diffcount
-            same_count[0,0] = (sspair_list[index_ss]._samecount + semi_alpha)/(count_sum + semi_alpha + semi_beta)
+            same_count[0,0] = (sspair_list[index_ss]._samecount + semi_alpha*count_sum)/((1 + semi_alpha + semi_beta)*count_sum)
             index_ss = (index_ss + 1) % sspair_list.__len__()
 
             feed_dict_ss = {train_centerWord: batch_ss_center, train_contextWord: batch_ss_context, ss_same_count: same_count}#, ss_diff_count: diff_count, train_labels: pesudo_labels, semi_claim_embedding: pesudo_embeddings}
